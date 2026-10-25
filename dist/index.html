@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#173e35">
+  <meta name="description" content="追踪人智协同教育、人智协同创造力、脑机接口（心理学视角）与人-AI 行为四个方向。真实文献、原始摘要与可追溯来源。">
+  <title>HumanAIBrief · 每日人智协同与脑机接口资讯</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到文献列表</a>
+<aside class="sidebar">
+  <a class="brand" href="./" aria-label="HumanAIBrief 首页">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 29 12 10 28 8 33 24 21 32 12 10 33 24 8 29 28 8"/><circle cx="8" cy="29" r="3"/><circle cx="12" cy="10" r="3"/><circle cx="28" cy="8" r="3"/><circle cx="33" cy="24" r="3"/><circle cx="21" cy="32" r="3"/></svg>
+    <span>HumanAIBrief<small>每日人智协同与脑机接口资讯</small></span>
+  </a>
+  <div class="sidebar-rule"></div>
+  <p class="nav-label">每日阅读 <span>DAILY READING</span></p>
+  <nav aria-label="文献分类" id="navigation">
+    <button class="nav-item active" data-view="all"><span class="nav-icon">▤</span><span>全部文献</span><span class="count" id="count-all">—</span></button>
+    <button class="nav-item" data-view="saved"><span class="nav-icon">◇</span><span>本机收藏</span><span class="count" id="count-saved">0</span></button>
+    <p class="nav-label topics-label">研究方向 <span>TOPICS</span></p>
+    <button class="nav-item topic-nav" data-view="human-ai-education"><span class="topic-dot human-ai-education"></span><span>人智协同教育</span><span class="count" id="count-human-ai-education">—</span></button>
+    <button class="nav-item topic-nav" data-view="human-ai-creativity"><span class="topic-dot human-ai-creativity"></span><span>人智协同创造力</span><span class="count" id="count-human-ai-creativity">—</span></button>
+    <button class="nav-item topic-nav" data-view="bci-psychology"><span class="topic-dot bci-psychology"></span><span>脑机接口·心理学视角</span><span class="count" id="count-bci-psychology">—</span></button>
+    <button class="nav-item topic-nav" data-view="human-ai-behavior"><span class="topic-dot human-ai-behavior"></span><span>人-AI 行为</span><span class="count" id="count-human-ai-behavior">—</span></button>
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="lab-note"><p><span>您今天还是没看文献吗？</span><span>点击题目跳转原文链接，</span><span>快去看看吧～</span></p></div>
+    <button id="about-button" class="about-button">数据来源与收录说明 <span>↗</span></button>
+  </div>
+</aside>
+
+<main id="main" class="main">
+  <header class="topbar"><span class="eyebrow">A READING SPACE FOR HUMAN-AI RESEARCH</span></header>
+  <section class="intro" aria-labelledby="page-title">
+    <div><p class="kicker"><span></span> HUMAN-AI COLLABORATION, IN FOCUS</p><h1 id="page-title">文献观察<span class="title-dot">.</span></h1><p id="page-description" class="intro-copy">人智协同与脑机接口的前沿研究，每天自动更新</p></div>
+    <div class="intro-mark brain-mark" aria-hidden="true"><img src="./brain-mark.svg" alt="" width="280" height="205"></div>
+  </section>
+
+  <section class="reading-notes" aria-label="阅读提示"><p><span class="note-star" aria-hidden="true">★</span><span class="note-copy">仅供快速浏览最新研究进展，<strong>收录自 2026 年 10 月 1 日起</strong>发表的文献，更早文章不纳入。</span></p><p><span class="note-star" aria-hidden="true">★</span><span class="note-copy">每日按关键词与关注来源扫描更新，可能遗漏部分研究。<strong>追踪前沿时请勿完全依赖本渠道</strong>。</span></p><p><span class="note-star" aria-hidden="true">★</span><span class="note-copy">中文总结基于文章摘要生成，可能有误，请以原文为准。</span></p></section>
+
+  <section class="overview" aria-label="收录概览"><div><span class="stat-label">近 7 天发表</span><strong id="stat-week">—</strong><span class="stat-unit">篇</span></div><div><span class="stat-label">累计收录</span><strong id="stat-total">—</strong><span class="stat-unit">篇 · 已去重</span></div><div class="update-stat"><span class="stat-label">更新进度</span><strong id="stat-updated">—</strong><span class="stat-unit" id="update-mode">正在读取更新记录</span></div></section>
+
+  <section class="filters" aria-label="文献筛选">
+    <div class="search-row"><label class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="搜索标题、作者、DOI、关键词…" aria-label="搜索文献" autocomplete="off"><kbd>/</kbd></label><button id="export-button" class="export-button" aria-label="导出 RIS">导出 <span>⤓</span></button></div>
+    <div class="filter-row"><div class="periods" role="group" aria-label="时间范围"><button data-days="7">近 7 天</button><button data-days="30" class="active">近 30 天</button><button data-days="90">近 90 天</button><button data-days="all">全部</button></div><div class="selects"><label><span class="sr-only">来源筛选</span><select id="source"><option value="all">全部来源</option><option value="acm">ACM 数字图书馆</option><option value="ieee">IEEE Xplore</option><option value="wos-scopus">WoS/Scopus 核心期刊</option></select></label><label><span class="sr-only">类型筛选</span><select id="type"><option value="all">全部类型</option><option value="journal">期刊文章</option><option value="conference">会议论文</option><option value="preprint">预印本</option><option value="review">综述</option></select></label><label><span class="sr-only">排序</span><select id="sort"><option value="published">发表时间 ↓</option><option value="added">本站收录 ↓</option></select></label></div></div>
+  </section>
+
+  <details class="journal-guide"><summary id="venue-guide-title">关注来源如何选择？查看名单</summary><p>按研究相关性与阅读价值维护。WoS/Scopus 收录身份通过核心期刊清单近似标记，无法经免费接口逐条核实；ACM/IEEE 按其出版方识别。其他来源可在“全部来源”中阅读。</p><div id="venue-list"></div></details>
+
+  <div id="notice" class="notice" hidden></div>
+  <section class="results-section" aria-label="文献列表"><div class="results-heading"><h2 id="list-title">最新文献 <span id="result-count">—</span></h2><span class="results-note">摘要概览 · 点击题目阅读原文</span></div><div id="papers" aria-live="polite" aria-busy="true"><div class="loading">正在读取最新文献…</div></div><button id="load-more" class="load-more" hidden>继续阅读 <span>↓</span></button></section>
+  <footer><p>保持好奇，也保留判断。<span>关键词筛选尚未经组内校准，入选不代表质量评价。</span><span class="footer-links"><a href="https://github.com/YuxuanChen-2000/human-ai-brief/actions" target="_blank" rel="noopener">更新记录 ↗</a></span></p></footer>
+</main>
+
+<dialog id="about-dialog" aria-labelledby="about-title"><div class="dialog-head"><span class="eyebrow">ABOUT THIS READING SPACE</span><button id="close-about" aria-label="关闭说明">×</button></div><h2 id="about-title">把来源与边界说清楚。</h2><p>数据来自 <a href="https://api.openalex.org/" target="_blank" rel="noopener">OpenAlex 学术图谱 ↗</a>，收录自 2026 年 10 月 1 日起发表的文献，覆盖 ACM 数字图书馆、IEEE Xplore 以及被 Web of Science / Scopus 收录的核心期刊与会议。每天检查最近发表记录，每周一仅补查上一自然周；同时扫描关注来源。保留已收录档案，仍不代表完整覆盖。</p><h3>筛选如何工作</h3><p>四个方向的英文词表同时用于远端检索和本地分类，减少两套规则不一致带来的漏检；本地归类要求标题、摘要或关键词的证据，再按 DOI 或 OpenAlex 编号去重。人智协同教育额外要求出现学生、教师、课堂等教育场景词，避免把“机器学习”中的 learning/training 误判为教育。一篇文章可以属于多个方向；卡片中的命中词只解释检索依据，不代表文章质量或研究结论。来源分组按出版方与期刊清单标记：ACM、IEEE 与 WoS/Scopus 核心期刊；WoS/Scopus 收录身份是近似标记，并非逐条核实。</p><p>第一版尚未自动关联 DOI 不同的预印本和正式发表版本，两者可能分别出现。</p><h3>摘要与日期</h3><p>中文概览由 DeepSeek 仅基于题目与原始摘要生成，适用于全部有摘要文献及后续新增文章，通常为 150–200 字左右，以自然表达和准确概括为先，不限制个别文章的长短。概览可能遗漏或误解信息，请展开原始摘要并阅读原文核对；未默认读取全文。未生成概览的文章继续显示原始摘要。“发表时间”为来源记录的首发日期；“本站收录”为首次被本程序采集的时间。缺少摘要时会如实标记，不仅根据题目编造研究结果。</p><h3>收藏与使用</h3><p>收藏仅保存在当前浏览器，不会与组员或其他设备同步。RIS 导出包含当前筛选结果，可导入 Zotero 等文献管理器。访问原文时，全文是否开放取决于出版方。</p><h3>更新状态</h3><p id="about-update">每天北京时间 08:17 由 GitHub Actions 自动采集并部署；调度可能延迟，请以最近成功记录为准。</p><p class="about-meta" id="about-meta"></p><a href="./data.json" target="_blank" rel="noopener" class="data-link">查看原始数据与完整检索式 ↗</a></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
+
+
