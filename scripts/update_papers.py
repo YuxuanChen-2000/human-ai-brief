@@ -318,7 +318,7 @@ def paper_passes_journal_filter(paper, config):
     return bool(groups & allowed)
 
 
-def issn_filter_for_topic(topic_id, config):
+def issn_filters_for_topic(topic_id, config, max_values=100):
     allowed = allowed_groups_for_topics([topic_id], config)
     issns = []
     seen = set()
@@ -329,7 +329,11 @@ def issn_filter_for_topic(topic_id, config):
                 if i and n and n not in seen:
                     seen.add(n)
                     issns.append(i)
-    return "locations.source.issn:" + "|".join(issns) if issns else None
+    filters = []
+    for pos in range(0, len(issns), max_values):
+        chunk = issns[pos:pos + max_values]
+        filters.append("locations.source.issn:" + "|".join(chunk))
+    return filters
 
 
 def normalize(row, today, seen, venues):
@@ -503,15 +507,13 @@ def reclassify_only(config, today):
     data["queries"] = []
     for topic in config["topics"]:
         keyword = "title_and_abstract.search:" + topic_query(topic)
-        search = keyword
-        issn_filter = issn_filter_for_topic(topic["id"], config)
-        if issn_filter:
-            search = keyword + "," + issn_filter
+        issn_filters = issn_filters_for_topic(topic["id"], config)
+        first_search = keyword + ("," + issn_filters[0] if issn_filters else "")
         data["queries"].append({
             "topic": topic["id"],
             "query": topic_query(topic),
             "candidate_count": sum(topic["id"] in x["topics"] for x in kept),
-            "request_url": API + "?" + urlencode({"filter": search, "mailto": MAILTO}),
+            "request_url": API + "?" + urlencode({"filter": first_search, "mailto": MAILTO}),
         })
     local_date = dt.datetime.now(dt.timezone(dt.timedelta(hours=8))).date().isoformat()
 
@@ -565,18 +567,19 @@ def main():
     for topic in config["topics"]:
         label = "topic:" + topic["id"]
         keyword = "title_and_abstract.search:" + topic_query(topic)
-        search = keyword
-        issn_filter = issn_filter_for_topic(topic["id"], config)
-        if issn_filter:
-            search = keyword + "," + issn_filter
-        rows = fetch_rows(search, start, today.isoformat(), windows, label)
+        issn_filters = issn_filters_for_topic(topic["id"], config)
+        rows = []
+        for issn_filter in issn_filters:
+            search = keyword + ("," + issn_filter if issn_filter else "")
+            rows.extend(fetch_rows(search, start, today.isoformat(), windows, label))
         print(f"{topic['id']}: {len(rows)} candidates", flush=True)
         results.append(rows)
+        first_search = keyword + ("," + issn_filters[0] if issn_filters else "")
         queries.append({
             "topic": topic["id"],
             "query": topic_query(topic),
             "candidate_count": len(rows),
-            "request_url": API + "?" + urlencode({"filter": search, "mailto": MAILTO}),
+            "request_url": API + "?" + urlencode({"filter": first_search, "mailto": MAILTO}),
         })
         time.sleep(0.4)
     now = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
