@@ -395,7 +395,8 @@
     "psychology": "心理学核心期刊",
     "cognitive_neuroscience": "认知神经科学期刊",
     "human_ai": "人机/AI·心理学交叉期刊",
-    "education": "教育技术·教育学期刊（仅教育主题）"
+    "education": "教育技术·教育学期刊（仅教育主题）",
+    "conference": "顶会论文（HCI / 认知科学 / 人因）"
   },
   "monitored_venues": [
     {
@@ -1471,6 +1472,125 @@
       "issns": [
         "2157-2100"
       ]
+    },
+    {
+      "id": "chi",
+      "name": "CHI Conference on Human Factors in Computing Systems",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S4363607743"
+    },
+    {
+      "id": "chi-ea",
+      "name": "Extended Abstracts of the CHI Conference (CHI EA)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S7407087610"
+    },
+    {
+      "id": "cscw",
+      "name": "ACM CSCW (Computer-Supported Cooperative Work & Social Computing)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S7407087342"
+    },
+    {
+      "id": "uist",
+      "name": "ACM UIST (User Interface Software and Technology)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S7407087746"
+    },
+    {
+      "id": "iui",
+      "name": "ACM IUI (Intelligent User Interfaces)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S7407086775"
+    },
+    {
+      "id": "dis",
+      "name": "ACM DIS (Designing Interactive Systems)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S7407087164"
+    },
+    {
+      "id": "idc",
+      "name": "ACM IDC (Interaction Design and Children)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S7407086946"
+    },
+    {
+      "id": "cc",
+      "name": "ACM Creativity & Cognition (C&C)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S7407087343"
+    },
+    {
+      "id": "icmi",
+      "name": "ACM ICMI (Multimodal Interaction)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S7407088132"
+    },
+    {
+      "id": "assets",
+      "name": "ACM SIGACCESS ASSETS (Computers and Accessibility)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S7407088110"
+    },
+    {
+      "id": "hri",
+      "name": "ACM/IEEE HRI (Human-Robot Interaction)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S4363608246"
+    },
+    {
+      "id": "aies",
+      "name": "AAAI/ACM AIES (AI, Ethics, and Society)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S5407048695"
+    },
+    {
+      "id": "facct",
+      "name": "ACM FAccT (Fairness, Accountability, and Transparency)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S4363608463"
+    },
+    {
+      "id": "ubicomp",
+      "name": "ACM UbiComp (Pervasive and Ubiquitous Computing)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S7407087778"
+    },
+    {
+      "id": "cogsci",
+      "name": "Proceedings of the Annual Meeting of the Cognitive Science Society",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S4306523994"
+    },
+    {
+      "id": "cscl",
+      "name": "Computer-Supported Collaborative Learning Conference (CSCL)",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S4306417984"
+    },
+    {
+      "id": "hfes",
+      "name": "Proceedings of the Human Factors and Ergonomics Society Annual Meeting",
+      "group": "conference",
+      "kind": "source",
+      "source_id": "S4210176815"
     }
   ],
   "update_policy": {
@@ -1478,28 +1598,32 @@
     "weekly_review": "previous-calendar-week-on-Monday",
     "automatic_full_backfill": true
   },
-  "journal_selection_note": "仅收录心理学、认知神经科学、人机/AI·心理学交叉期刊（人智协同教育额外纳入教育技术/教育学期刊）；预印本、会议论文与纯工程/计算机类来源不再收录。名单见 monitored_venues，可随时增删。",
+  "journal_selection_note": "仅收录心理学、认知神经科学、人机/AI·心理学交叉期刊，以及 ACM CHI/CSCW/UIST/IUI/DIS/IDC/C&C/ICMI/ASSETS/HRI/AIES/FAccT/UbiComp、认知科学学会年会、CSCL、HFES 年会等顶会论文；人智协同教育额外纳入教育技术/教育学期刊。预印本与纯工程/计算机期刊不收录。",
   "topic_allowed_groups": {
     "human-ai-education": [
       "psychology",
       "cognitive_neuroscience",
       "human_ai",
-      "education"
+      "education",
+      "conference"
     ],
     "human-ai-creativity": [
       "psychology",
       "cognitive_neuroscience",
-      "human_ai"
+      "human_ai",
+      "conference"
     ],
     "human-ai-behavior": [
       "psychology",
       "cognitive_neuroscience",
-      "human_ai"
+      "human_ai",
+      "conference"
     ],
     "bci-psychology": [
       "psychology",
       "cognitive_neuroscience",
-      "human_ai"
+      "human_ai",
+      "conference"
     ]
   }
 }

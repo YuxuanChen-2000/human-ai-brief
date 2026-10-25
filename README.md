@@ -11,8 +11,8 @@
 
 ## 数据源与边界
 
-- 主数据源是 [OpenAlex](https://api.openalex.org/) 免费学术图谱；仅收录心理学、认知神经科学、人机/AI·心理学交叉期刊，人智协同教育额外纳入教育技术/教育学期刊。
-- 期刊白名单集中在 `config/topics.json` 的 `monitored_venues`（按 `group` 分四类），主题与期刊类别的对应关系在 `topic_allowed_groups`；预印本、会议论文与纯工程/计算机来源不收录。
+- 主数据源是 [OpenAlex](https://api.openalex.org/) 免费学术图谱；仅收录心理学、认知神经科学、人机/AI·心理学交叉期刊与 ACM CHI/CSCW/UIST/ICMI/ASSETS/HRI 等顶会论文，人智协同教育额外纳入教育技术/教育学期刊。
+- 来源白名单集中在 `config/topics.json` 的 `monitored_venues`（期刊用 `kind:"issn"`，顶会用 `kind:"source"`，按 `group` 分五类），主题与来源类别的对应关系在 `topic_allowed_groups`；预印本与纯工程/计算机期刊不收录。
 - 摘要保留来源原文；中文概览由 DeepSeek 仅依据题目与摘要生成，不读付费全文、不做质量评分。
 - 预印本与正式发表版若 DOI 不同，尚未自动关联，可能分别展示。
 - 分类来自标题、摘要与关键词，可能有误报与漏报，请以原文为准。
@@ -86,7 +86,7 @@ powershell -ExecutionPolicy Bypass -File scripts/publish_github.ps1 -Repository 
 ## 调整方向与来源
 
 - 改主题：编辑 `config/topics.json` 的 `topics`，每个方向有 `evidence_terms`（展示命中词）、`required_term_groups`（多组“且”、组内“或”，全部命中才归类）、`exclude_terms`、可选 `require_focus_terms`（强焦点词门槛）。
-- 改期刊白名单：编辑 `monitored_venues`（每条含 `group` 分类与 `issns`），并用 `topic_allowed_groups` 指定每个主题允许的期刊类别。改完需重跑 `python scripts/update_papers.py --reclassify-only` 重新过滤存量数据。
+- 改来源白名单：编辑 `monitored_venues`（期刊用 `kind:"issn"` 与 `issns`，顶会用 `kind:"source"` 与 `source_id`），并用 `topic_allowed_groups` 指定每个主题允许的来源类别。改完重跑全量采集或 `python scripts/update_papers.py --reclassify-only`。
 - 改起始日期：`coverage_start`。改完需要重跑一次采集（删除 `dist/data.json` 后重新 `update_papers.py` 做全量回溯）。
 - 改站名/地址：`config/site.json`。
 

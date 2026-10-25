@@ -302,8 +302,15 @@ def allowed_groups_for_topics(topic_ids, config):
     return groups
 
 
-def journal_groups_of_paper(paper, venues):
-    return groups_for_issns(paper.get("journal_issns") or [], venues)
+def groups_for_paper(paper, venues):
+    groups = groups_for_issns(paper.get("journal_issns") or [], venues)
+    sid = paper.get("venue_source_id")
+    if sid:
+        for venue in venues:
+            if venue.get("kind") == "source" and venue.get("source_id") == sid:
+                groups.append(venue.get("group"))
+                break
+    return sorted(set(groups))
 
 
 def paper_passes_journal_filter(paper, config):
@@ -311,28 +318,41 @@ def paper_passes_journal_filter(paper, config):
     if not mapping:
         return True
     venues = config.get("monitored_venues", [])
-    groups = set(journal_groups_of_paper(paper, venues))
+    groups = set(groups_for_paper(paper, venues))
     if not groups:
         return False
     allowed = allowed_groups_for_topics(paper.get("topics", []), config)
     return bool(groups & allowed)
 
 
-def issn_filters_for_topic(topic_id, config, max_values=100):
+def source_filters_for_topic(topic_id, config, max_values=100):
     allowed = allowed_groups_for_topics([topic_id], config)
     issns = []
-    seen = set()
+    sids = []
+    seen_issn = set()
+    seen_sid = set()
     for venue in config.get("monitored_venues", []):
-        if venue.get("kind") == "issn" and venue.get("group") in allowed:
+        if venue.get("group") not in allowed:
+            continue
+        kind = venue.get("kind")
+        if kind == "issn":
             for i in (venue.get("issns") or [venue.get("issn")]):
                 n = normalized_issn(i)
-                if i and n and n not in seen:
-                    seen.add(n)
+                if i and n and n not in seen_issn:
+                    seen_issn.add(n)
                     issns.append(i)
+        elif kind == "source":
+            sid = venue.get("source_id")
+            if sid and sid not in seen_sid:
+                seen_sid.add(sid)
+                sids.append(sid)
     filters = []
     for pos in range(0, len(issns), max_values):
         chunk = issns[pos:pos + max_values]
         filters.append("locations.source.issn:" + "|".join(chunk))
+    for pos in range(0, len(sids), max_values):
+        chunk = sids[pos:pos + max_values]
+        filters.append("locations.source.id:" + "|".join(chunk))
     return filters
 
 
@@ -365,6 +385,7 @@ def normalize(row, today, seen, venues):
     source = source_of(row)
     venue_type = source.get("type") if source else None
     issns = sorted(set(source.get("issn") or [])) if source else []
+    venue_source_id = (source.get("id") or "").rstrip("/").split("/")[-1] if source else None
     keywords = [k.get("display_name") for k in (row.get("keywords") or []) if k.get("display_name")]
     type_crossref = row.get("type_crossref")
     is_preprint = (
@@ -389,6 +410,7 @@ def normalize(row, today, seen, venues):
         "authors": authors,
         "journal": (source.get("display_name") if source else None) or "来源未提供",
         "journal_issns": issns,
+        "venue_source_id": venue_source_id,
         "venue_type": venue_type,
         "published": published,
         "publication_year": str(row.get("publication_year") or "") or None,
@@ -507,8 +529,8 @@ def reclassify_only(config, today):
     data["queries"] = []
     for topic in config["topics"]:
         keyword = "title_and_abstract.search:" + topic_query(topic)
-        issn_filters = issn_filters_for_topic(topic["id"], config)
-        first_search = keyword + ("," + issn_filters[0] if issn_filters else "")
+        source_filters = source_filters_for_topic(topic["id"], config)
+        first_search = keyword + ("," + source_filters[0] if source_filters else "")
         data["queries"].append({
             "topic": topic["id"],
             "query": topic_query(topic),
@@ -567,14 +589,14 @@ def main():
     for topic in config["topics"]:
         label = "topic:" + topic["id"]
         keyword = "title_and_abstract.search:" + topic_query(topic)
-        issn_filters = issn_filters_for_topic(topic["id"], config)
+        source_filters = source_filters_for_topic(topic["id"], config)
         rows = []
-        for issn_filter in issn_filters:
-            search = keyword + ("," + issn_filter if issn_filter else "")
+        for src_filter in source_filters:
+            search = keyword + ("," + src_filter if src_filter else "")
             rows.extend(fetch_rows(search, start, today.isoformat(), windows, label))
         print(f"{topic['id']}: {len(rows)} candidates", flush=True)
         results.append(rows)
-        first_search = keyword + ("," + issn_filters[0] if issn_filters else "")
+        first_search = keyword + ("," + source_filters[0] if source_filters else "")
         queries.append({
             "topic": topic["id"],
             "query": topic_query(topic),
