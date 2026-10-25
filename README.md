@@ -11,8 +11,8 @@
 
 ## 数据源与边界
 
-- 主数据源是 [OpenAlex](https://api.openalex.org/) 免费学术图谱，覆盖 ACM Digital Library、IEEE Xplore 以及被 Web of Science / Scopus 收录的主要期刊与会议。
-- WoS / Scopus 没有免费逐条查询接口，站点用 `config/topics.json` 里的核心期刊清单近似标记「WoS/Scopus 核心期刊」；ACM / IEEE 按其出版方（host organization）识别。这是近似标记，不是逐条核实。
+- 主数据源是 [OpenAlex](https://api.openalex.org/) 免费学术图谱；仅收录心理学、认知神经科学、人机/AI·心理学交叉期刊，人智协同教育额外纳入教育技术/教育学期刊。
+- 期刊白名单集中在 `config/topics.json` 的 `monitored_venues`（按 `group` 分四类），主题与期刊类别的对应关系在 `topic_allowed_groups`；预印本、会议论文与纯工程/计算机来源不收录。
 - 摘要保留来源原文；中文概览由 DeepSeek 仅依据题目与摘要生成，不读付费全文、不做质量评分。
 - 预印本与正式发表版若 DOI 不同，尚未自动关联，可能分别展示。
 - 分类来自标题、摘要与关键词，可能有误报与漏报，请以原文为准。
@@ -21,7 +21,7 @@
 
 - 通过 OpenAlex 官方接口抓取文献，标准库实现，无第三方依赖。
 - 固定从 2026-10-01 首次发表开始追踪；首次运行做一次全量回溯，之后每日增量并重叠 1 天，每周一补查上一自然周。
-- 四方向筛选、标题/作者/DOI/关键词搜索、日期/类型（期刊文章/会议论文/预印本/综述）筛选、来源库（ACM/IEEE/WoS-Scopus）筛选。
+- 四方向筛选、标题/作者/DOI/关键词搜索、日期/期刊类别筛选，以及期刊白名单过滤。
 - DOI/OpenAlex 编号去重，本机收藏，RIS 导出到 Zotero。
 - 网站优先读取压缩的 `data.json.gz`，原始 `data.json` 保留供核对。
 - RSS 文件继续提供，每份最近 50 篇；页面未放 RSS 入口。
@@ -86,7 +86,7 @@ powershell -ExecutionPolicy Bypass -File scripts/publish_github.ps1 -Repository 
 ## 调整方向与来源
 
 - 改主题：编辑 `config/topics.json` 的 `topics`，每个方向有 `evidence_terms`（展示命中词）、`required_term_groups`（多组“且”、组内“或”，全部命中才归类）、`exclude_terms`、可选 `require_focus_terms`（强焦点词门槛）。
-- 改来源：编辑 `monitored_venues`，支持 `host`（出版方，如 ACM/IEEE 的 host_organization 编号）、`source`（OpenAlex 期刊/会议编号 S...）、`issn` 三种。
+- 改期刊白名单：编辑 `monitored_venues`（每条含 `group` 分类与 `issns`），并用 `topic_allowed_groups` 指定每个主题允许的期刊类别。改完需重跑 `python scripts/update_papers.py --reclassify-only` 重新过滤存量数据。
 - 改起始日期：`coverage_start`。改完需要重跑一次采集（删除 `dist/data.json` 后重新 `update_papers.py` 做全量回溯）。
 - 改站名/地址：`config/site.json`。
 

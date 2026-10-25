@@ -392,164 +392,1085 @@
     }
   ],
   "venue_group_labels": {
-    "acm": "ACM 数字图书馆",
-    "ieee": "IEEE Xplore",
-    "wos-scopus": "WoS/Scopus 核心期刊"
+    "psychology": "心理学核心期刊",
+    "cognitive_neuroscience": "认知神经科学期刊",
+    "human_ai": "人机/AI·心理学交叉期刊",
+    "education": "教育技术·教育学期刊（仅教育主题）"
   },
   "monitored_venues": [
     {
-      "id": "acm",
-      "name": "ACM 数字图书馆（全部出版物）",
-      "group": "acm",
-      "kind": "host",
-      "host_organization": "P4310319798"
-    },
-    {
-      "id": "ieee",
-      "name": "IEEE Xplore（全部出版物）",
-      "group": "ieee",
-      "kind": "host",
-      "host_organization": "P4310319808"
-    },
-    {
-      "id": "chi",
-      "name": "ACM CHI 人机交互旗舰会议",
-      "group": "acm",
-      "kind": "source",
-      "source_id": "S4363607743"
-    },
-    {
-      "id": "chi-ea",
-      "name": "ACM CHI Extended Abstracts",
-      "group": "acm",
-      "kind": "source",
-      "source_id": "S7407087610"
-    },
-    {
-      "id": "cscw",
-      "name": "ACM CSCW 计算机支持的协同工作",
-      "group": "acm",
-      "kind": "source",
-      "source_id": "S7407087342"
-    },
-    {
-      "id": "uist",
-      "name": "ACM UIST 用户界面软件与技术",
-      "group": "acm",
-      "kind": "source",
-      "source_id": "S7407087746"
-    },
-    {
-      "id": "iui",
-      "name": "ACM IUI 智能用户界面",
-      "group": "acm",
-      "kind": "source",
-      "source_id": "S7407086775"
-    },
-    {
-      "id": "dis",
-      "name": "ACM DIS 交互系统设计",
-      "group": "acm",
-      "kind": "source",
-      "source_id": "S7407087164"
-    },
-    {
-      "id": "idc",
-      "name": "ACM IDC 儿童交互设计",
-      "group": "acm",
-      "kind": "source",
-      "source_id": "S7407086946"
-    },
-    {
-      "id": "cc",
-      "name": "ACM Creativity & Cognition",
-      "group": "acm",
-      "kind": "source",
-      "source_id": "S7407087343"
-    },
-    {
-      "id": "compedu",
-      "name": "Computers & Education",
-      "group": "wos-scopus",
-      "kind": "issn",
-      "issn": "0360-1315"
-    },
-    {
-      "id": "chb",
-      "name": "Computers in Human Behavior",
-      "group": "wos-scopus",
-      "kind": "issn",
-      "issn": "0747-5632"
-    },
-    {
-      "id": "ijhcs",
-      "name": "International Journal of Human-Computer Studies",
-      "group": "wos-scopus",
-      "kind": "issn",
-      "issn": "1071-5819"
-    },
-    {
-      "id": "ijhci",
-      "name": "International Journal of Human-Computer Interaction",
-      "group": "wos-scopus",
-      "kind": "issn",
-      "issn": "1044-7318"
-    },
-    {
-      "id": "hci",
-      "name": "Human-Computer Interaction",
-      "group": "wos-scopus",
-      "kind": "issn",
-      "issn": "0737-0024"
-    },
-    {
-      "id": "jedpsych",
+      "id": "jep",
       "name": "Journal of Educational Psychology",
-      "group": "wos-scopus",
+      "group": "psychology",
       "kind": "issn",
-      "issn": "0022-0663"
+      "issns": [
+        "0022-0663"
+      ]
     },
     {
-      "id": "crj",
-      "name": "Creativity Research Journal",
-      "group": "wos-scopus",
+      "id": "edpsych",
+      "name": "Educational Psychologist",
+      "group": "psychology",
       "kind": "issn",
-      "issn": "1040-0419"
+      "issns": [
+        "0046-1520"
+      ]
     },
     {
-      "id": "tsc",
-      "name": "Thinking Skills and Creativity",
-      "group": "wos-scopus",
+      "id": "cep",
+      "name": "Contemporary Educational Psychology",
+      "group": "psychology",
       "kind": "issn",
-      "issn": "1871-1871"
+      "issns": [
+        "0361-476X"
+      ]
+    },
+    {
+      "id": "li",
+      "name": "Learning and Instruction",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0959-4752"
+      ]
+    },
+    {
+      "id": "ci",
+      "name": "Cognition and Instruction",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0737-0008"
+      ]
+    },
+    {
+      "id": "metacog",
+      "name": "Metacognition and Learning",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1556-1623",
+        "1556-1631"
+      ]
+    },
+    {
+      "id": "jepg",
+      "name": "Journal of Experimental Psychology: General",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0096-3445"
+      ]
+    },
+    {
+      "id": "jepa",
+      "name": "Journal of Experimental Psychology: Applied",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1076-898X"
+      ]
+    },
+    {
+      "id": "jeplmc",
+      "name": "Journal of Experimental Psychology: Learning, Memory, and Cognition",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0278-7393"
+      ]
+    },
+    {
+      "id": "jephpp",
+      "name": "Journal of Experimental Psychology: Human Perception and Performance",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0096-1523"
+      ]
+    },
+    {
+      "id": "psychsci",
+      "name": "Psychological Science",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0956-7976",
+        "1467-9280"
+      ]
+    },
+    {
+      "id": "pps",
+      "name": "Perspectives on Psychological Science",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1745-6916"
+      ]
+    },
+    {
+      "id": "cdir",
+      "name": "Current Directions in Psychological Science",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0963-7214",
+        "1467-8721"
+      ]
+    },
+    {
+      "id": "psychbull",
+      "name": "Psychological Bulletin",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0033-2909"
+      ]
+    },
+    {
+      "id": "psychrev",
+      "name": "Psychological Review",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0033-295X"
+      ]
+    },
+    {
+      "id": "jpsp",
+      "name": "Journal of Personality and Social Psychology",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0022-3514"
+      ]
+    },
+    {
+      "id": "pspb",
+      "name": "Personality and Social Psychology Bulletin",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0146-1672"
+      ]
+    },
+    {
+      "id": "jap",
+      "name": "Journal of Applied Psychology",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0021-9010"
+      ]
+    },
+    {
+      "id": "ampsych",
+      "name": "American Psychologist",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0003-066X"
+      ]
+    },
+    {
+      "id": "annrevpsych",
+      "name": "Annual Review of Psychology",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0066-4308"
+      ]
+    },
+    {
+      "id": "bjp",
+      "name": "British Journal of Psychology",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0007-1269"
+      ]
+    },
+    {
+      "id": "ejsp",
+      "name": "European Journal of Social Psychology",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0046-2772"
+      ]
+    },
+    {
+      "id": "jesp",
+      "name": "Journal of Experimental Social Psychology",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0022-1031"
+      ]
+    },
+    {
+      "id": "spps",
+      "name": "Social Psychological and Personality Science",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1948-5506"
+      ]
+    },
+    {
+      "id": "paid",
+      "name": "Personality and Individual Differences",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0191-8869"
+      ]
+    },
+    {
+      "id": "jrp",
+      "name": "Journal of Research in Personality",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0092-6566"
+      ]
+    },
+    {
+      "id": "cognition",
+      "name": "Cognition",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0010-0277"
+      ]
+    },
+    {
+      "id": "cogpsych",
+      "name": "Cognitive Psychology",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0010-0285"
+      ]
     },
     {
       "id": "cogsci",
       "name": "Cognitive Science",
-      "group": "wos-scopus",
+      "group": "psychology",
       "kind": "issn",
-      "issn": "0364-0213"
+      "issns": [
+        "0364-0213"
+      ]
     },
     {
-      "id": "jne",
-      "name": "Journal of Neural Engineering",
-      "group": "wos-scopus",
+      "id": "memcog",
+      "name": "Memory & Cognition",
+      "group": "psychology",
       "kind": "issn",
-      "issn": "1741-2552"
+      "issns": [
+        "0090-502X"
+      ]
     },
     {
-      "id": "tnsre",
-      "name": "IEEE TNSRE 神经与康复工程",
-      "group": "ieee",
+      "id": "jcp",
+      "name": "Journal of Cognitive Psychology",
+      "group": "psychology",
       "kind": "issn",
-      "issn": "1534-4320"
+      "issns": [
+        "2044-5911",
+        "2044-592X"
+      ]
+    },
+    {
+      "id": "pbr",
+      "name": "Psychonomic Bulletin & Review",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1069-9384"
+      ]
+    },
+    {
+      "id": "app",
+      "name": "Attention, Perception, & Psychophysics",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1943-3921"
+      ]
+    },
+    {
+      "id": "fpsych",
+      "name": "Frontiers in Psychology",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1664-1078"
+      ]
+    },
+    {
+      "id": "bmcpsych",
+      "name": "BMC Psychology",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "2050-7283"
+      ]
+    },
+    {
+      "id": "actapsych",
+      "name": "Acta Psychologica",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0001-6918"
+      ]
+    },
+    {
+      "id": "tmb",
+      "name": "Technology, Mind, and Behavior",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "2689-0208"
+      ]
+    },
+    {
+      "id": "poaca",
+      "name": "Psychology of Aesthetics, Creativity, and the Arts",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1931-3896"
+      ]
+    },
+    {
+      "id": "crj",
+      "name": "Creativity Research Journal",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1040-0419"
+      ]
+    },
+    {
+      "id": "jcb",
+      "name": "Journal of Creative Behavior",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0022-0175"
+      ]
+    },
+    {
+      "id": "tsc",
+      "name": "Thinking Skills and Creativity",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1871-1871"
+      ]
+    },
+    {
+      "id": "joi",
+      "name": "Journal of Intelligence",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "2079-3200"
+      ]
+    },
+    {
+      "id": "intelligence",
+      "name": "Intelligence",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0160-2896"
+      ]
+    },
+    {
+      "id": "lid",
+      "name": "Learning and Individual Differences",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1041-6080"
+      ]
+    },
+    {
+      "id": "instsci",
+      "name": "Instructional Science",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0020-4277"
+      ]
+    },
+    {
+      "id": "bjep",
+      "name": "British Journal of Educational Psychology",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0007-0998"
+      ]
+    },
+    {
+      "id": "epr",
+      "name": "Educational Psychology Review",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1040-726X"
+      ]
+    },
+    {
+      "id": "acp",
+      "name": "Applied Cognitive Psychology",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0888-4080"
+      ]
+    },
+    {
+      "id": "jbdm",
+      "name": "Journal of Behavioral Decision Making",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0894-3257"
+      ]
+    },
+    {
+      "id": "jdm",
+      "name": "Judgment and Decision Making",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1930-2975"
+      ]
+    },
+    {
+      "id": "chb",
+      "name": "Computers in Human Behavior",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0747-5632",
+        "1873-7692"
+      ]
+    },
+    {
+      "id": "chbr",
+      "name": "Computers in Human Behavior Reports",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "2451-9588"
+      ]
+    },
+    {
+      "id": "cybbsn",
+      "name": "Cyberpsychology, Behavior, and Social Networking",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "2152-2715",
+        "2152-2723"
+      ]
+    },
+    {
+      "id": "cyberpsych",
+      "name": "Cyberpsychology: Journal of Psychosocial Research on Cyberspace",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1802-7962"
+      ]
+    },
+    {
+      "id": "nms",
+      "name": "New Media & Society",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1461-4448",
+        "1461-7315"
+      ]
+    },
+    {
+      "id": "jcmc",
+      "name": "Journal of Computer-Mediated Communication",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1083-6101"
+      ]
+    },
+    {
+      "id": "sms",
+      "name": "Social Media + Society",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "2056-3051"
+      ]
+    },
+    {
+      "id": "commres",
+      "name": "Communication Research",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0093-6502"
+      ]
+    },
+    {
+      "id": "hcr",
+      "name": "Human Communication Research",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "0360-3989"
+      ]
+    },
+    {
+      "id": "jmp",
+      "name": "Journal of Media Psychology",
+      "group": "psychology",
+      "kind": "issn",
+      "issns": [
+        "1864-1105",
+        "2151-2388"
+      ]
+    },
+    {
+      "id": "neuroimage",
+      "name": "NeuroImage",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "1053-8119"
+      ]
+    },
+    {
+      "id": "hbm",
+      "name": "Human Brain Mapping",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "1065-9471"
+      ]
+    },
+    {
+      "id": "jcn",
+      "name": "Journal of Cognitive Neuroscience",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "0898-929X"
+      ]
+    },
+    {
+      "id": "cabn",
+      "name": "Cognitive, Affective, & Behavioral Neuroscience",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "1530-7026"
+      ]
+    },
+    {
+      "id": "scan",
+      "name": "Social Cognitive and Affective Neuroscience",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "1749-5016"
+      ]
+    },
+    {
+      "id": "cortex",
+      "name": "Cortex",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "0010-9452"
+      ]
+    },
+    {
+      "id": "bandc",
+      "name": "Brain and Cognition",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "0278-2626"
+      ]
+    },
+    {
+      "id": "neuropsychologia",
+      "name": "Neuropsychologia",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "0028-3932"
+      ]
+    },
+    {
+      "id": "cercor",
+      "name": "Cerebral Cortex",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "1047-3211"
+      ]
+    },
+    {
+      "id": "biopsych",
+      "name": "Biological Psychology",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "0301-0511"
+      ]
+    },
+    {
+      "id": "psychophys",
+      "name": "Psychophysiology",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "0048-5772"
+      ]
+    },
+    {
+      "id": "ijp",
+      "name": "International Journal of Psychophysiology",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "0167-8760"
+      ]
+    },
+    {
+      "id": "fhn",
+      "name": "Frontiers in Human Neuroscience",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "1662-5161"
+      ]
+    },
+    {
+      "id": "nhb",
+      "name": "Nature Human Behaviour",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "2397-3374"
+      ]
+    },
+    {
+      "id": "cogneuro",
+      "name": "Cognitive Neuroscience",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "1758-8928",
+        "1758-8936"
+      ]
+    },
+    {
+      "id": "dcn",
+      "name": "Developmental Cognitive Neuroscience",
+      "group": "cognitive_neuroscience",
+      "kind": "issn",
+      "issns": [
+        "1878-9293"
+      ]
+    },
+    {
+      "id": "ijhcs",
+      "name": "International Journal of Human-Computer Studies",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "1071-5819",
+        "1095-9300"
+      ]
+    },
+    {
+      "id": "ijhci",
+      "name": "International Journal of Human-Computer Interaction",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "1044-7318",
+        "1532-7590"
+      ]
+    },
+    {
+      "id": "hci",
+      "name": "Human-Computer Interaction",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "0737-0024",
+        "1532-7051"
+      ]
+    },
+    {
+      "id": "humanfactors",
+      "name": "Human Factors",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "0018-7208",
+        "1547-8181"
+      ]
+    },
+    {
+      "id": "ergonomics",
+      "name": "Ergonomics",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "0014-0139",
+        "1366-5847"
+      ]
+    },
+    {
+      "id": "appergo",
+      "name": "Applied Ergonomics",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "0003-6870"
+      ]
+    },
+    {
+      "id": "bit",
+      "name": "Behaviour & Information Technology",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "0144-929X",
+        "1362-3001"
+      ]
+    },
+    {
+      "id": "tochi",
+      "name": "ACM Transactions on Computer-Human Interaction",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "1073-0516",
+        "1557-7325"
+      ]
+    },
+    {
+      "id": "tiis",
+      "name": "ACM Transactions on Interactive Intelligent Systems",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "2160-6455",
+        "2160-6463"
+      ]
     },
     {
       "id": "taffc",
-      "name": "IEEE TAFFC 情感计算",
-      "group": "ieee",
+      "name": "IEEE Transactions on Affective Computing",
+      "group": "human_ai",
       "kind": "issn",
-      "issn": "1949-3045"
+      "issns": [
+        "1949-3045",
+        "2371-9850"
+      ]
+    },
+    {
+      "id": "thms",
+      "name": "IEEE Transactions on Human-Machine Systems",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "2168-2291",
+        "2168-2305"
+      ]
+    },
+    {
+      "id": "jais",
+      "name": "Journal of the Association for Information Systems",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "1536-9323"
+      ]
+    },
+    {
+      "id": "hbet",
+      "name": "Human Behavior and Emerging Technologies",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "2578-1863"
+      ]
+    },
+    {
+      "id": "aisociety",
+      "name": "AI & Society",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "0951-5666",
+        "1435-5655"
+      ]
+    },
+    {
+      "id": "ijsr",
+      "name": "International Journal of Social Robotics",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "1875-4791",
+        "1875-4805"
+      ]
+    },
+    {
+      "id": "cogres",
+      "name": "Cognitive Systems Research",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "1389-0417"
+      ]
+    },
+    {
+      "id": "topics",
+      "name": "Topics in Cognitive Science",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "1756-8757",
+        "1756-8765"
+      ]
+    },
+    {
+      "id": "umuai",
+      "name": "User Modeling and User-Adapted Interaction",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "0924-1868",
+        "1573-1391"
+      ]
+    },
+    {
+      "id": "iwc",
+      "name": "Interacting with Computers",
+      "group": "human_ai",
+      "kind": "issn",
+      "issns": [
+        "0953-5438",
+        "1873-7951"
+      ]
+    },
+    {
+      "id": "compedu",
+      "name": "Computers & Education",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "0360-1315",
+        "1873-782X"
+      ]
+    },
+    {
+      "id": "etrd",
+      "name": "Educational Technology Research and Development",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "1042-1629",
+        "1556-6501"
+      ]
+    },
+    {
+      "id": "bjet",
+      "name": "British Journal of Educational Technology",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "0007-1013",
+        "1467-8535"
+      ]
+    },
+    {
+      "id": "jcal",
+      "name": "Journal of Computer Assisted Learning",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "0266-4909",
+        "1365-2729"
+      ]
+    },
+    {
+      "id": "ile",
+      "name": "Interactive Learning Environments",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "1049-4820",
+        "1744-5191"
+      ]
+    },
+    {
+      "id": "lmt",
+      "name": "Learning, Media and Technology",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "1743-9884",
+        "1743-9892"
+      ]
+    },
+    {
+      "id": "iahe",
+      "name": "The Internet and Higher Education",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "1096-7516",
+        "1873-5525"
+      ]
+    },
+    {
+      "id": "ijethe",
+      "name": "International Journal of Educational Technology in Higher Education",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "2365-9440"
+      ]
+    },
+    {
+      "id": "eit",
+      "name": "Education and Information Technologies",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "1360-2357",
+        "1573-7608"
+      ]
+    },
+    {
+      "id": "jecr",
+      "name": "Journal of Educational Computing Research",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "0735-6331",
+        "1541-4140"
+      ]
+    },
+    {
+      "id": "sle",
+      "name": "Smart Learning Environments",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "2196-7091"
+      ]
+    },
+    {
+      "id": "ajet",
+      "name": "Australasian Journal of Educational Technology",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "1449-5554"
+      ]
+    },
+    {
+      "id": "tlt",
+      "name": "IEEE Transactions on Learning Technologies",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "1939-1382",
+        "2372-0050"
+      ]
+    },
+    {
+      "id": "ijaied",
+      "name": "International Journal of Artificial Intelligence in Education",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "1560-4292",
+        "1560-4306"
+      ]
+    },
+    {
+      "id": "ets",
+      "name": "Educational Technology & Society",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "1176-3647",
+        "1436-4522"
+      ]
+    },
+    {
+      "id": "tpe",
+      "name": "Technology, Pedagogy and Education",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "1475-939X",
+        "1747-5139"
+      ]
+    },
+    {
+      "id": "jls",
+      "name": "Journal of the Learning Sciences",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "1050-8406",
+        "1532-7809"
+      ]
+    },
+    {
+      "id": "ijcscl",
+      "name": "International Journal of Computer-Supported Collaborative Learning",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "1556-1607",
+        "1556-1615"
+      ]
+    },
+    {
+      "id": "lcsi",
+      "name": "Learning, Culture and Social Interaction",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "2210-6561"
+      ]
+    },
+    {
+      "id": "jedm",
+      "name": "Journal of Educational Data Mining",
+      "group": "education",
+      "kind": "issn",
+      "issns": [
+        "2157-2100"
+      ]
     }
   ],
   "update_policy": {
@@ -557,5 +1478,28 @@
     "weekly_review": "previous-calendar-week-on-Monday",
     "automatic_full_backfill": true
   },
-  "journal_selection_note": "关注来源按四个方向的相关性维护，WoS/Scopus 收录身份通过期刊清单近似标记，无法经免费接口逐条核实；名单可查看、可调整。"
+  "journal_selection_note": "仅收录心理学、认知神经科学、人机/AI·心理学交叉期刊（人智协同教育额外纳入教育技术/教育学期刊）；预印本、会议论文与纯工程/计算机类来源不再收录。名单见 monitored_venues，可随时增删。",
+  "topic_allowed_groups": {
+    "human-ai-education": [
+      "psychology",
+      "cognitive_neuroscience",
+      "human_ai",
+      "education"
+    ],
+    "human-ai-creativity": [
+      "psychology",
+      "cognitive_neuroscience",
+      "human_ai"
+    ],
+    "human-ai-behavior": [
+      "psychology",
+      "cognitive_neuroscience",
+      "human_ai"
+    ],
+    "bci-psychology": [
+      "psychology",
+      "cognitive_neuroscience",
+      "human_ai"
+    ]
+  }
 }

@@ -24,8 +24,7 @@ updater = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(updater)
 assert data.get("classification_fingerprint") == updater.classification_fingerprint(config), "Run collection after changing topic rules"
 assert data["initial_coverage_start"] == config["coverage_start"]
-venue_count = len(config.get("monitored_venues", []))
-assert len(data["queries"]) == len(config["topics"]) + venue_count, "Missing venue safety sweep"
+assert len(data["queries"]) == len(config["topics"]), "Missing topic sweep"
 assert data["scan_mode"] in ("initial-full", "daily-incremental", "daily-plus-previous-week")
 allowed_venue_groups = set(config.get("venue_group_labels", {}))
 for report in data["queries"]:

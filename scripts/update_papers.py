@@ -71,7 +71,8 @@ def venue_filter(venue):
     if kind == "source":
         return "locations.source.id:" + venue["source_id"]
     if kind == "issn":
-        return "locations.source.issn:" + venue["issn"]
+        issns = [i for i in (venue.get("issns") or [venue.get("issn")]) if i]
+        return "locations.source.issn:" + "|".join(issns)
     raise ValueError("Unknown venue kind: " + repr(kind))
 
 
@@ -103,7 +104,7 @@ def classify(paper, topics):
 def classification_fingerprint(config):
     rules = {
         k: config.get(k)
-        for k in ("topics", "coverage_start", "monitored_venues", "classification_version")
+        for k in ("topics", "coverage_start", "monitored_venues", "topic_allowed_groups", "classification_version")
     }
     return hashlib.sha256(
         json.dumps(rules, sort_keys=True, ensure_ascii=False).encode()
@@ -257,6 +258,23 @@ def source_of(row):
     return source
 
 
+def normalized_issn(value):
+    return re.sub(r"[^a-z0-9]", "", (value or "").lower())
+
+
+def groups_for_issns(issns, venues):
+    norm = {normalized_issn(i) for i in issns if i}
+    groups = []
+    for venue in venues:
+        if venue.get("kind") != "issn":
+            continue
+        for i in (venue.get("issns") or [venue.get("issn")]):
+            if i and normalized_issn(i) in norm:
+                groups.append(venue.get("group"))
+                break
+    return sorted(set(groups))
+
+
 def venue_groups_for(row, venues):
     source = source_of(row)
     if not source:
@@ -266,16 +284,52 @@ def venue_groups_for(row, venues):
     issns = set(source.get("issn") or [])
     if source.get("issn_l"):
         issns.add(source["issn_l"])
-    groups = []
+    groups = groups_for_issns(issns, venues)
     for venue in venues:
         kind = venue.get("kind")
         if kind == "host" and host and host == venue.get("host_organization"):
             groups.append(venue["group"])
         elif kind == "source" and source_id and source_id == venue.get("source_id"):
             groups.append(venue["group"])
-        elif kind == "issn" and venue.get("issn") in issns:
-            groups.append(venue["group"])
     return sorted(set(groups))
+
+
+def allowed_groups_for_topics(topic_ids, config):
+    mapping = config.get("topic_allowed_groups", {})
+    groups = set()
+    for tid in topic_ids:
+        groups.update(mapping.get(tid, []))
+    return groups
+
+
+def journal_groups_of_paper(paper, venues):
+    return groups_for_issns(paper.get("journal_issns") or [], venues)
+
+
+def paper_passes_journal_filter(paper, config):
+    mapping = config.get("topic_allowed_groups")
+    if not mapping:
+        return True
+    venues = config.get("monitored_venues", [])
+    groups = set(journal_groups_of_paper(paper, venues))
+    if not groups:
+        return False
+    allowed = allowed_groups_for_topics(paper.get("topics", []), config)
+    return bool(groups & allowed)
+
+
+def issn_filter_for_topic(topic_id, config):
+    allowed = allowed_groups_for_topics([topic_id], config)
+    issns = []
+    seen = set()
+    for venue in config.get("monitored_venues", []):
+        if venue.get("kind") == "issn" and venue.get("group") in allowed:
+            for i in (venue.get("issns") or [venue.get("issn")]):
+                n = normalized_issn(i)
+                if i and n and n not in seen:
+                    seen.add(n)
+                    issns.append(i)
+    return "locations.source.issn:" + "|".join(issns) if issns else None
 
 
 def normalize(row, today, seen, venues):
@@ -364,7 +418,7 @@ def build_dataset(old, results, config, today, now):
             item = normalize(row, today, seen, config.get("monitored_venues", []))
             if item:
                 item = classify(item, config["topics"])
-                if item["topics"]:
+                if item["topics"] and paper_passes_journal_filter(item, config):
                     item["first_seen"] = dt.datetime.now(dt.timezone(dt.timedelta(hours=8))).isoformat(timespec="seconds")
                     items.append(item)
     # Merge with previous records so the archive keeps accumulating.
@@ -374,7 +428,7 @@ def build_dataset(old, results, config, today, now):
     merged = list(by_id.values())
     merged.sort(key=lambda p: (p.get("published") or "", p.get("id") or ""), reverse=True)
     start = config["coverage_start"]
-    eligible = [p for p in merged if p.get("published") and start <= p["published"] <= today]
+    eligible = [p for p in merged if p.get("published") and start <= p["published"] <= today and paper_passes_journal_filter(p, config)]
     local_date = dt.datetime.fromisoformat(now.replace("Z", "+00:00")).astimezone(
         dt.timezone(dt.timedelta(hours=8))
     ).date().isoformat()
@@ -421,21 +475,44 @@ def build_dataset(old, results, config, today, now):
 
 
 def reclassify_only(config, today):
-    """Re-apply the current classifier to every archived paper without
-    refetching. Used after editing topic rules; updates the fingerprint."""
+    """Re-apply the current topic classifier AND the journal allowlist to every
+    archived paper without refetching. Drops records that no longer belong to an
+    allowed journal for their assigned topics; updates the fingerprint."""
     path = ROOT / "dist" / "data.json"
     data = json.loads(path.read_text(encoding="utf-8"))
+    kept = []
     for p in data["papers"]:
         rec = classify(p, config["topics"])
         p["topics"] = rec["topics"]
         p["evidence"] = rec["evidence"]
-    data["papers"] = [p for p in data["papers"] if p["topics"]]
+        if p["topics"] and paper_passes_journal_filter(p, config):
+            kept.append(p)
+    data["papers"] = kept
+    venues = config.get("monitored_venues", [])
+    for p in kept:
+        p["venue_groups"] = groups_for_issns(p.get("journal_issns") or [], venues)
+        p["is_monitored_venue"] = bool(p["venue_groups"])
     data["classification_version"] = config.get("classification_version", "custom")
     data["classification_fingerprint"] = classification_fingerprint(config)
     data["topics"] = [
         {k: v for k, v in t.items() if k in ("id", "name", "short_name", "description")}
         for t in config["topics"]
     ]
+    data["monitored_venues"] = config.get("monitored_venues", [])
+    data["venue_group_labels"] = config.get("venue_group_labels", {})
+    data["queries"] = []
+    for topic in config["topics"]:
+        keyword = "title_and_abstract.search:" + topic_query(topic)
+        search = keyword
+        issn_filter = issn_filter_for_topic(topic["id"], config)
+        if issn_filter:
+            search = keyword + "," + issn_filter
+        data["queries"].append({
+            "topic": topic["id"],
+            "query": topic_query(topic),
+            "candidate_count": sum(topic["id"] in x["topics"] for x in kept),
+            "request_url": API + "?" + urlencode({"filter": search, "mailto": MAILTO}),
+        })
     local_date = dt.datetime.now(dt.timezone(dt.timedelta(hours=8))).date().isoformat()
 
     def seen_day(p):
@@ -445,12 +522,27 @@ def reclassify_only(config, today):
 
     data["update_summary"]["new_papers"] = sum(seen_day(p) == data["update_summary"]["date"] for p in data["papers"])
     data["update_summary"]["new_in_run"] = data["update_summary"]["new_papers"]
+    ready = sum(bool(p.get("summary_zh")) for p in data["papers"])
+    eligible = sum(bool(p.get("abstract", "").strip()) for p in data["papers"])
+    mode = json.loads((ROOT / "config" / "summaries.json").read_text(encoding="utf-8")).get("mode", "automatic")
+    old_status = data.get("summary_status") or {}
+    data["summary_status"] = {
+        "mode": mode,
+        "ready": ready,
+        "eligible": eligible,
+        "pending": eligible - ready,
+        "no_abstract": len(data["papers"]) - eligible,
+        "held": 0,
+        "errors": 0,
+        "current_version": old_status.get("current_version"),
+        "description": old_status.get("description", ""),
+    }
     data["updated_at"] = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
     temp = path.with_suffix(".json.tmp")
     temp.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     import os as _os
     _os.replace(temp, path)
-    print(f"Reclassified {len(data['papers'])} unique papers; fingerprint updated.")
+    print(f"Refiltered {len(data['papers'])} unique papers; fingerprint updated.")
 
 
 def main():
@@ -472,7 +564,11 @@ def main():
     queries = []
     for topic in config["topics"]:
         label = "topic:" + topic["id"]
-        search = "title_and_abstract.search:" + topic_query(topic)
+        keyword = "title_and_abstract.search:" + topic_query(topic)
+        search = keyword
+        issn_filter = issn_filter_for_topic(topic["id"], config)
+        if issn_filter:
+            search = keyword + "," + issn_filter
         rows = fetch_rows(search, start, today.isoformat(), windows, label)
         print(f"{topic['id']}: {len(rows)} candidates", flush=True)
         results.append(rows)
@@ -483,19 +579,6 @@ def main():
             "request_url": API + "?" + urlencode({"filter": search, "mailto": MAILTO}),
         })
         time.sleep(0.4)
-    for venue in config.get("monitored_venues", []):
-        label = "venue:" + venue["id"]
-        vf = venue_filter(venue)
-        rows = fetch_rows(vf, start, today.isoformat(), windows, label)
-        print(f"venue:{venue['id']}: {len(rows)} candidates", flush=True)
-        results.append(rows)
-        queries.append({
-            "topic": "venue:" + venue["id"],
-            "query": vf,
-            "candidate_count": len(rows),
-            "request_url": API + "?" + urlencode({"filter": vf, "mailto": MAILTO}),
-        })
-        time.sleep(0.3)
     now = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
     dataset = build_dataset(old, results, config, today.isoformat(), now)
     dataset["queries"] = queries

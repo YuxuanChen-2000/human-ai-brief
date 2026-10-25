@@ -79,21 +79,19 @@ class IngestionTests(unittest.TestCase):
         ), TOPICS)
         self.assertTrue({"human-ai-education", "human-ai-creativity"} <= set(result["topics"]))
 
-    def test_venue_groups_by_host_and_source(self):
+    def test_venue_groups_by_issn(self):
         row = {"primary_location": {"source": {
-            "id": "https://openalex.org/S4363607743",
-            "display_name": "CHI",
-            "issn": ["0000-0000"],
-            "host_organization": "https://openalex.org/P4310319798",
-        }}}
-        self.assertIn("acm", m.venue_groups_for(row, VENUES))
-        ieee = {"primary_location": {"source": {
             "id": "https://openalex.org/S1",
-            "display_name": "IEEE Trans",
-            "issn": [],
-            "host_organization": "https://openalex.org/P4310319808",
+            "display_name": "Computers in Human Behavior",
+            "issn": ["0747-5632"],
         }}}
-        self.assertIn("ieee", m.venue_groups_for(ieee, VENUES))
+        self.assertIn("psychology", m.venue_groups_for(row, VENUES))
+        edu = {"primary_location": {"source": {
+            "id": "https://openalex.org/S2",
+            "display_name": "Computers & Education",
+            "issn": ["0360-1315"],
+        }}}
+        self.assertIn("education", m.venue_groups_for(edu, VENUES))
 
     def test_chunk_windows_splits_into_week_chunks(self):
         chunks = m.chunk_windows([("2026-01-15", "2026-01-31")])
@@ -130,7 +128,7 @@ class IngestionTests(unittest.TestCase):
         row = {
             "id": "https://openalex.org/W9", "title": "ChatGPT supports learners",
             "publication_date": "2026-10-05", "type": "article",
-            "doi": "https://doi.org/10.1/DUP", "primary_location": {"source": None},
+            "doi": "https://doi.org/10.1/DUP", "primary_location": {"source": {"id": "https://openalex.org/S99", "display_name": "Computers & Education", "issn": ["0360-1315"]}},
             "authorships": [], "abstract_inverted_index": {
                 "Students": [0], "used": [1], "a": [2], "large": [3], "language": [4],
                 "model": [5], "for": [6], "learning": [7], "in": [8], "the": [9], "classroom": [10],
@@ -144,7 +142,7 @@ class IngestionTests(unittest.TestCase):
         row = {
             "id": "https://openalex.org/W10", "title": "A generative AI design study",
             "publication_date": "2026-10-06", "type": "article",
-            "doi": "https://doi.org/10.1/KEEP", "primary_location": {"source": None},
+            "doi": "https://doi.org/10.1/KEEP", "primary_location": {"source": {"id": "https://openalex.org/S98", "display_name": "Creativity Research Journal", "issn": ["1040-0419"]}},
             "authorships": [], "abstract_inverted_index": {
                 "Designers": [0], "used": [1], "generative": [2], "ai": [3], "for": [4], "creative": [5], "ideation": [6],
             },
