@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.tmp
+.env
+.env.*
+.DS_Store
+.tools/
+.preview/
+.local/
+.openai/
+dist/*.gz
